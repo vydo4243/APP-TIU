@@ -93,27 +93,14 @@ export default function ScheduleScreen() {
                     <View
                       className="mb-4 flex-row items-start"
                       style={{ height: 45 * (item.end - item.start + 1) }}>
-                      {/* <View className="mt-5 w-6 items-center justify-center">
-                        {Array.from({ length: item.end - item.start + 1 }, (_, i) => {
-                          const p = item.start + i;
-                          return (
-                            <Text
-                              key={p}
-                              className="text-darker justify-center text-center text-lg font-medium"
-                              style={{ height: 45 }}>
-                              {p}
-                            </Text>
-                          );
-                        })}
-                      </View> */}
-                      <View className="mr-3 rounded-full bg-[#394A92] ">
+                      <View className="mr-2 rounded-full bg-[#394A92] ">
                         {Array.from({ length: item.end - item.start + 1 }, (_, i) => {
                           const p = item.start + i;
                           return (
                             <Text
                               key={p}
                               className="pt-3 text-center text-base text-white"
-                              style={{ height: 45, width: 24 }}>
+                              style={{ height: 45, width: 30 }}>
                               {p}
                             </Text>
                           );
