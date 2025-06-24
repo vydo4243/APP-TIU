@@ -17,6 +17,9 @@ module.exports = {
         'dark-active': '#222D52',
         darker: '#1A2340',
       },
+      fontFamily: {
+        sans: ['Inter', 'sans-serif']
+      },
     },
   },
   plugins: [],
