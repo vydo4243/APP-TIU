@@ -1,13 +1,13 @@
 import { Tabs } from 'expo-router';
 import { View, Text } from 'react-native';
-import ScheduleIcon from '~/assets/icons/calendarlinear.svg';
-import ScheduleIconActive from '~/assets/icons/calendarlinearfill.svg';
+import ScheduleIcon from '~/assets/icons/schedule.svg';
+import ScheduleIconActive from '~/assets/icons/schedulefill.svg';
 import CheckinIcon from '~/assets/icons/award.svg';
 import CheckinIconActive from '~/assets/icons/awardfill.svg';
-import ClassCheckIcon from '~/assets/icons/statusup.svg';
-import ClassCheckIconActive from '~/assets/icons/statusupfill.svg';
-import DeadlineIcon from '~/assets/icons/timer.svg';
-import DeadlineIconActive from '~/assets/icons/timerfill.svg';
+import ClassCheckIcon from '~/assets/icons/classcheck.svg';
+import ClassCheckIconActive from '~/assets/icons/classcheckfill.svg';
+import DeadlineIcon from '~/assets/icons/deadline.svg';
+import DeadlineIconActive from '~/assets/icons/deadlinefill.svg';
 import ProfileIcon from '~/assets/icons/college.svg';
 import ProfileIconActive from '~/assets/icons/collegefill.svg';
 
@@ -51,7 +51,7 @@ export default function TabLayout() {
 
           return (
             <View className="w-[70px] items-center justify-center pt-8">
-              <Icon width={24} height={24} />
+              <Icon width={30} height={30} />
               <Text
                 className={`text-dark mt-1 text-center text-xs`}
                 numberOfLines={1}
