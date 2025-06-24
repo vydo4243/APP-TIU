@@ -17,6 +17,12 @@ module.exports = {
         'dark-active': '#222D52',
         darker: '#1A2340',
       },
+      fontFamily: {
+        normal: ['Inter_400Regular'],
+        medium: ['Inter_500Medium'],
+        semibold: ['Inter_600SemiBold'],
+        bold: ['Inter_700Bold'],
+      },
     },
   },
   plugins: [],
