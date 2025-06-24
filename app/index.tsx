@@ -4,7 +4,6 @@ import LogoIcon from '../assets/icons/LOGO.svg';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import BlobBackground from '../components/BlobBG';
 import { MotiView, MotiText, MotiImage } from 'moti';
-// import BGImage from '../assets/UITbg.png';
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -42,21 +41,21 @@ export default function HomeScreen() {
         </View>
         <BlobBackground />
         {/* Content */}
-        <View className="mt-9 px-8">
+        <View className="mt-9 px-9">
           {/* Placeholder for logo */}
           <MotiView
             from={{ opacity: 0, translateY: 20 }}
             animate={{ opacity: 1, translateY: 0 }}
             transition={{ delay: 300, duration: 800 }}>
-            <LogoIcon className="mt-8 h-48 w-full rounded-t-3xl" />
+            <LogoIcon className="mt-8 h-48 w-full" />
             {/* <E4Icon className="absolute w-24 h-24 top-10 -left-10 opacity-60" /> */}
-            <Text className="mt-4 font-['Inter'] text-2xl font-semibold text-normal">
+            <Text className="mt-4 font-['Inter'] text-3xl font-semibold text-normal">
               Welcome to
             </Text>
-            <Text className="mt-1 font-['Inter'] text-lg font-bold text-normal-hover">
+            <Text className="mt-0.5 font-['Inter'] text-lg font-bold text-normal-hover">
               University of Information Technology
             </Text>
-            <Text className="mt-2 font-['Inter'] text-base font-normal text-dark">
+            <Text className="mt-3 font-['Inter'] text-base font-normal text-dark">
               Is a leading center for scientific research and technology transfer in information and
               communication technology, classified as a key national university and a member of the
               Vietnam National University, Ho Chi Minh City.
@@ -74,7 +73,7 @@ export default function HomeScreen() {
             }}>
             <TouchableOpacity
               activeOpacity={0.8}
-              className="mt-5 flex items-center gap-2 self-start rounded-[90px] bg-normal px-4 py-2 shadow-[10px_10px_20px_0px_rgba(75,99,183,0.20)]">
+              className="mt-6 flex items-center gap-2 self-start rounded-[90px] bg-normal px-4 py-2 shadow-[10px_10px_20px_0px_rgba(75,99,183,0.20)]">
               <MotiText
                 from={{ opacity: 0 }}
                 animate={{ opacity: 1 }}

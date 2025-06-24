@@ -8,9 +8,9 @@ export default function BlobBackground() {
     <View className="absolute w-full h-full">
       {/* <E4Icon width={160} height={160} style={{ position: 'absolute', top: 100, left: 15 }} /> */}
       <View className="absolute">
-      <View style={{ position: 'absolute', top: 160, left: 8, overflow: 'visible' }}>
+      <View style={{ position: 'absolute', top: 160, left: 15, overflow: 'visible' }}>
         <E4Icon
-          width={130} height={100}
+          width={137} height={108}
           style={{
             transform: [{ rotate: '0deg' }],
           }}
@@ -18,10 +18,10 @@ export default function BlobBackground() {
       </View>
     </View>
       <View className="absolute">
-      <View style={{ position: 'absolute', top: 320, left: 90, overflow: 'visible' }}>
+      <View style={{ position: 'absolute', top: 325, left: 90, overflow: 'visible' }}>
         <E3Icon
-          width={140}
-          height={110}
+          width={142.87}
+          height={113.24}
           style={{
             transform: [{ rotate: '-5deg' }],
           }}
