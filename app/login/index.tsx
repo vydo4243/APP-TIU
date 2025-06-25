@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, SafeAreaView, ScrollView } from 'react-native';
-import { useRouter } from 'expo-router';
+import { usePathname, useRouter } from 'expo-router';
 import Back_light from '~/assets/icons/Back_light.svg';
 import Ellipse3 from '~/assets/icons/Ellipse3.svg';
 import Ellipse4 from '~/assets/icons/Ellipse4.svg';
@@ -9,6 +9,8 @@ export default function LoginScreen() {
   const router = useRouter();
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
+  const pathname = usePathname();
+  const isActive = (href: string) => pathname === href;
 
   const handleLogin = () => {
     if (id && pw) {
@@ -19,7 +21,7 @@ export default function LoginScreen() {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+    <View className="flex-1 pt-16">
       {/* Back Button */}
       <View style={StyleSheet.absoluteFill}>
         <Ellipse3 width="499" height="456" />
@@ -27,17 +29,34 @@ export default function LoginScreen() {
 
       <View style={styles.IntroButtons}>
 
-        <TouchableOpacity style={styles.backButton}>
+        <TouchableOpacity onPress={() => router.push('/')} style={styles.backButton}>
           <Back_light width={30} height={30} />
         </TouchableOpacity>
 
-        <View style={styles.rightButtons}>
-          <TouchableOpacity style={styles.aboutButton} onPress={() => console.log('About Us')}>
-            <Text style={styles.aboutButtonText}>About Us</Text>
+        <View className="flex-row justify-end gap-6 pr-9">
+          <TouchableOpacity
+            onPress={() => router.push('/about-us')}
+            className={`inline-flex items-center justify-center gap-2 rounded-[90px] px-4 py-2 ${
+              isActive('/about-us') ? 'bg-normal' : 'bg-light'
+            }`}>
+            <Text
+              className={`text-center text-lg font-normal ${
+                isActive('/about-us') ? 'text-white' : 'text-normal'
+              }`}>
+              About Us
+            </Text>
           </TouchableOpacity>
-
-          <TouchableOpacity style={styles.logButton} onPress={handleLogin}>
-            <Text style={styles.logButtonText}>Login</Text>
+          <TouchableOpacity
+            onPress={() => router.push('/login')}
+            className={`inline-flex items-center justify-center gap-2 rounded-[90px] px-4 py-2 ${
+              isActive('/login') ? 'bg-normal' : 'bg-light'
+            }`}>
+            <Text
+              className={`text-center text-lg font-normal ${
+                isActive('/login') ? 'text-white' : 'text-normal'
+              }`}>
+              Login
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -100,7 +119,7 @@ export default function LoginScreen() {
 
       </ScrollView>
 
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -120,7 +139,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#EDEFF8',
     alignItems: 'center',
     justifyContent: 'center',
-    alignSelf: 'flex-start',
+    alignSelf: 'center',
   },
   backIcon: {
     width: 30,
@@ -130,10 +149,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
-   
-    marginTop: 50,
+    paddingHorizontal: 16,
     marginLeft: 17,
     alignItems: 'center',
+    alignSelf: 'center'
   },
 
   rightButtons: {

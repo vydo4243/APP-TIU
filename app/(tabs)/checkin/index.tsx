@@ -52,13 +52,13 @@ const sessions = [
 export default function CheckIn() {
   const [selectedDate, setSelectedDate] = useState<dayjs.Dayjs | null>(null);
   return (
-    <SafeAreaView className='flex-1 bg-white w-full self-center'>
+    <View className='flex-1 pt-16 bg-white w-full self-center'>
       <ScrollView className='flex-1' showsVerticalScrollIndicator={false}>
-        <View className='pt-4'>
+        <View className='pb-5'>
           <Calendar sessions={sessions} onDateSelect={(date) => setSelectedDate(date)} />
           <ClassSessionList sessions={sessions} selectedDate={selectedDate} />
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }

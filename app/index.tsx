@@ -10,7 +10,7 @@ export default function HomeScreen() {
   const pathname = usePathname();
   const isActive = (href: string) => pathname === href;
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <View className="flex-1 pt-16 bg-white">
       <View className="flex-1">
         {/* Header */}
         <View className="flex-row justify-end gap-4 pr-5 pt-3">
@@ -98,6 +98,6 @@ export default function HomeScreen() {
           source={require('../assets/img/UITbg.png')}
         />
       </View>
-    </SafeAreaView>
+    </View>
   );
 }

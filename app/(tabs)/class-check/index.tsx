@@ -73,10 +73,10 @@ export default function ClassCheckScreen() {
               className={`flex-1 items-center justify-center px-2 py-3 border-b-2 ${isActive ? 'bg-light border-dark' : 'border-light-active'
                 }`}
             >
-              <Text className="font-medium text-dark text-[18px]">
+              <Text className="font-medium text-dark text-lg">
                 {tab === 'Block B' ? (
                   <>
-                    <Text className="font-medium text-dark text-[18px]">Block B</Text>
+                    <Text className="font-medium text-dark text-lg">Block B</Text>
                   </>
                 ) : (
                   tab
@@ -93,7 +93,7 @@ export default function ClassCheckScreen() {
         </TouchableOpacity>
 
         <View className="bg-light rounded-full items-center justify-center px-6 py-3 mx-[16px] w-[297px] ">
-          <Text className="text-dark font-medium text-[16px] ">
+          <Text className="text-dark font-medium text-base ">
             {FLOORS[floorIndex]}
           </Text>
         </View>
@@ -116,7 +116,7 @@ export default function ClassCheckScreen() {
                 <View className="flex-row gap-2 items-center">
 
                   <BookIcon width={20} height={20} />
-                  <Text className="font-semibold text-[18px] text-darker">
+                  <Text className="font-semibold text-lg text-darker">
                     Classroom {room.name}
                   </Text>
                 </View>
@@ -125,7 +125,7 @@ export default function ClassCheckScreen() {
                 <View className="flex-row gap-2 items-center mt-2">
 
                   <Chart width={20} height={20} />
-                  <Text className="text-dark font-semibold text-[18px]">
+                  <Text className="text-dark font-semibold text-lg">
                     {room.capacity}/{room.total}
                   </Text>
                 </View>
@@ -135,7 +135,7 @@ export default function ClassCheckScreen() {
               <TouchableOpacity
                 className={`px-4 py-2 rounded-[90px] ${statusConfig.bgColor}`}
               >
-                <Text className={`text-[18px] font-semibold ${statusConfig.textColor}`}>
+                <Text className={`text-lg font-semibold ${statusConfig.textColor}`}>
                   {statusConfig.text}
                 </Text>
               </TouchableOpacity>

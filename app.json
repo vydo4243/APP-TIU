@@ -24,7 +24,7 @@
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/img/LOGO.png",
-      "resizeMode": "cover",
+      "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
