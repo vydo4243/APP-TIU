@@ -104,7 +104,7 @@ const Calendar = ({
     isSelected?: boolean;
     onPress?: () => void;
   }) => {
-    const containerBase = `h-[61px] w-[61px] items-center justify-start rounded-[8px] px-2.5 ${
+    const containerBase = `min-h-[60px] min-w-[60px] items-center justify-start rounded-[8px] px-2.5 ${
       isSelected ? 'border border-normal' : ''
     }`;
 
@@ -152,7 +152,7 @@ const Calendar = ({
       <Text className="justify-start self-stretch text-center font-semibold text-2xl text-normal ">
         {today.format('YYYY/MM/DD')}
       </Text>
-      <View className="mt-4 w-full self-center border-b border-t border-light-active bg-white px-1 pt-5">
+      <View className="mt-4 pb-1 w-full self-center border-b border-t border-light-active bg-white px-1 pt-5">
         <View className="mb-5 flex-row justify-between">
           {dayHeaders.map((day, index) => (
             <Text key={index} className="flex-1 text-center font-normal text-lg text-dark">

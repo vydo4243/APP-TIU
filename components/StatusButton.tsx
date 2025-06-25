@@ -24,7 +24,7 @@ export const StatusButton = ({ status, children, onPress }: StatusButtonProps) =
   return (
     <TouchableOpacity
       onPress={onPress}
-      className={`flex-1 rounded-[90px] items-center justify-center ml-2 px-4 py-2 ${getStatusBgClass()}`}
+      className={`flex-1 rounded-[90px] items-center justify-center px-4 py-2 max-w-[150px] ${getStatusBgClass()}`}
     >
       <Text className="text-light text-lg font-normal">
         {children}

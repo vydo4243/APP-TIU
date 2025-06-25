@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, Text } from 'react-native';
 import { ClassSession } from './ClassSession';
 import dayjs from 'dayjs';
 
@@ -19,6 +19,11 @@ const filteredSessions = sessions.filter((session) =>
 
   return (
     <View className="mt-4 w-full self-center bg-white">
+       {filteredSessions.length === 0 ? (
+        <Text className="text-base font-normal text-darker text-center py-6">
+          Hôm nay không có lịch học.
+        </Text>
+      ) : (
       <ScrollView showsVerticalScrollIndicator={false}>
         {filteredSessions.map((session, index) => (
             <ClassSession
@@ -27,10 +32,12 @@ const filteredSessions = sessions.filter((session) =>
               timeSlot={session.timeSlot}
               status={session.status}
               statusText={session.statusText}
-              isLast={index === filteredSessions.length - 1}
+              index={index}
+              total={filteredSessions.length}
             />
           ))}
       </ScrollView>
+      )}
     </View>
   );
 };
