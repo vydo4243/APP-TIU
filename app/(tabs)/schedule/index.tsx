@@ -71,15 +71,6 @@ export default function ScheduleScreen() {
     periodMap[item.start] = item;
   });
 
-  if (isLoading) {
-    return (
-      <View className="mt-32 flex-1 items-center justify-center">
-        <ActivityIndicator size="large" color="#394A92" />
-        <Text className="mt-4 text-lg text-dark">Loading...</Text>
-      </View>
-    );
-  }
-
   return (
     <>
       {isLoading ? (
