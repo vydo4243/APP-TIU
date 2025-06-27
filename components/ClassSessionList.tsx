@@ -10,6 +10,8 @@ type Session = {
   status: 'check in' | 'check out' | 'absent';
   statusText: string;
   date: string;
+  checkIn?: string | null;
+  checkOut?: string | null;
 };
 
 const statusMap = (status: number): 'check in' | 'check out' | 'absent' => {
@@ -84,6 +86,8 @@ export const ClassSessionList = ({
               statusText={session.statusText}
               index={index}
               total={filteredSessions.length}
+              checkIn={session.checkIn ?? null}
+              checkOut={session.checkOut ?? null}
             />
           ))}
         </ScrollView>

@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { WebView } from 'react-native-webview';
 import Back_light from '~/assets/icons/Back_light.svg';
 import { usePathname, useRouter } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function MapScreen() {
   const router = useRouter();
@@ -954,7 +955,9 @@ export default function MapScreen() {
     <View className="flex-1 bg-white pt-16">
       <View className="flex-row items-center justify-between px-4 pb-3 pt-3">
         <TouchableOpacity
-          onPress={() => router.push('/')}
+          onPress={async () => {
+            router.back();
+          }}
           className="bg-light flex items-center justify-center rounded-full p-2">
           <Back_light />
         </TouchableOpacity>

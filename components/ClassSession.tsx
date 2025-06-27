@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
 import { StatusButton } from './StatusButton';
-import { Pressable } from 'react-native';
 
 interface ClassSessionProps {
   courseCode: string;
@@ -11,6 +10,8 @@ interface ClassSessionProps {
   index: number;
   total: number;
   onStatusPress?: () => void;
+  checkIn: string | null;
+  checkOut: string | null;
 }
 
 export const ClassSession = ({
@@ -21,6 +22,8 @@ export const ClassSession = ({
   index,
   total,
   onStatusPress,
+  checkIn,
+  checkOut,
 }: ClassSessionProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const isLast = index === total - 1 && !isExpanded;

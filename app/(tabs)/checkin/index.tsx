@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import { View, ScrollView, ActivityIndicator, Text } from 'react-native';
 import Calendar from '../../../components/Calendar';
 import { ClassSessionList } from '../../../components/ClassSessionList';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import { CicoData } from '../../../type/Cico.type';
 
 // const sessions = [
@@ -53,9 +53,11 @@ import { CicoData } from '../../../type/Cico.type';
 export default function CheckIn() {
   const [selectedDate, setSelectedDate] = useState<dayjs.Dayjs | null>(null);
   const [data, setData] = useState<CicoData[] | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     async function fetchData() {
       try {
+        setIsLoading(true);
         const response = await fetch(`http://192.168.0.100:8080/crm/student/cico`, {
           method: 'GET',
           headers: {
@@ -86,19 +88,30 @@ export default function CheckIn() {
         } else {
           console.error('Lỗi không xác định:', error);
         }
+      } finally {
+        setIsLoading(false);
       }
     }
 
     fetchData();
   }, []);
   return (
-    <View className="w-full flex-1 self-center bg-white pt-16">
-      <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
-        <View className="pb-5">
-          <Calendar data={data} onDateSelect={(date) => setSelectedDate(date)} />
-          <ClassSessionList data={data} selectedDate={selectedDate} />
+    <>
+      {isLoading ? (
+        <View className="mt-32 flex-1 items-center justify-center">
+          <ActivityIndicator size="large" color="#394A92" />
+          <Text className="text-dark mt-4 text-lg">Loading...</Text>
         </View>
-      </ScrollView>
-    </View>
+      ) : (
+        <View className="w-full flex-1 self-center bg-white pt-16">
+          <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
+            <View className="pb-5">
+              <Calendar data={data} onDateSelect={(date) => setSelectedDate(date)} />
+              <ClassSessionList data={data} selectedDate={selectedDate} />
+            </View>
+          </ScrollView>
+        </View>
+      )}
+    </>
   );
 }
