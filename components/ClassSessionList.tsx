@@ -9,6 +9,8 @@ type Session = {
   status: 'on-time' | 'late' | 'absent';
   statusText: string;
   date: string;
+  checkIn?: string | null;
+  checkOut?: string | null;
 };
 
 export const ClassSessionList = ({ selectedDate, sessions }: { selectedDate: dayjs.Dayjs | null; sessions: Session[]; }) => {
@@ -34,6 +36,8 @@ const filteredSessions = sessions.filter((session) =>
               statusText={session.statusText}
               index={index}
               total={filteredSessions.length}
+              checkIn={session.checkIn ?? null}
+              checkOut={session.checkOut ?? null}
             />
           ))}
       </ScrollView>
