@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableOpacity, Text } from 'react-native';
 
 type StatusButtonProps = {
-  status: 'on-time' | 'late' | 'absent';
+  status: 'check in' | 'check out' | 'absent';
   children: React.ReactNode;
   onPress?: () => void;
 };
@@ -10,9 +10,9 @@ type StatusButtonProps = {
 export const StatusButton = ({ status, children, onPress }: StatusButtonProps) => {
   const getStatusBgClass = () => {
     switch (status) {
-      case 'on-time':
+      case 'check in':
         return 'bg-[#a0ba46]';
-      case 'late':
+      case 'check out':
         return 'bg-[#f1a805]';
       case 'absent':
         return 'bg-[#888888]';
@@ -24,11 +24,8 @@ export const StatusButton = ({ status, children, onPress }: StatusButtonProps) =
   return (
     <TouchableOpacity
       onPress={onPress}
-      className={`flex-1 rounded-[90px] items-center justify-center px-4 py-2 max-w-[150px] ${getStatusBgClass()}`}
-    >
-      <Text className="text-light text-lg font-normal">
-        {children}
-      </Text>
+      className={`max-w-[150px] flex-1 items-center justify-center rounded-[90px] px-4 py-2 ${getStatusBgClass()}`}>
+      <Text className="text-light text-lg font-normal">{children}</Text>
     </TouchableOpacity>
   );
 };

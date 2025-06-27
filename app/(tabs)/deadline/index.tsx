@@ -5,8 +5,41 @@ import Timer from '~/assets/icons/timer.svg';
 import ScheduleIcon from '~/assets/icons/schedule.svg';
 import UnSubmit from '~/assets/icons/submit.svg';
 import Submit from '~/assets/icons/submitfill.svg';
+import { useEffect, useState } from 'react';
 
 export default function DeadlineScreen() {
+  const [data, setData] = useState();
+  useEffect(() => {
+    async function fetchData() {
+      let responseData = null;
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/hello`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+        });
+
+        if (!response.ok) {
+          throw new Error('Đăng nhập thất bại');
+        }
+        console.log(response);
+
+        responseData = await response.json();
+
+        return responseData; // Trả về kết quả nếu thành công
+      } catch (error) {
+        // throw error.message; // Quăng lỗi để controller xử lý
+      }
+      if (responseData) {
+        setData(responseData.description); // Lưu dữ liệu nếu hợp lệ
+        console.log(data);
+      }
+    }
+
+    fetchData();
+  }, []);
   const deadlines = [
     {
       subject: 'SE113.P21.CNCL',

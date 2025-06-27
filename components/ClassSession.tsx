@@ -6,7 +6,7 @@ import { Pressable } from 'react-native';
 interface ClassSessionProps {
   courseCode: string;
   timeSlot: string;
-  status: 'on-time' | 'late' | 'absent';
+  status: 'check in' | 'check out' | 'absent';
   statusText: string;
   index: number;
   total: number;
@@ -24,27 +24,38 @@ export const ClassSession = ({
 }: ClassSessionProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const isLast = index === total - 1 && !isExpanded;
+  console.log('timeSlot', timeSlot);
   return (
     <Pressable onPress={() => setIsExpanded(!isExpanded)}>
-      <View className="flex bg-white w-full self-center">
-        <View className={`flex-row min-h-[60px] px-4 py-2.5 items-center justify-between ${!isLast ? 'border-b border-light-active' : ''}`}>
-          <Text className="text-base text-darker w-fit">{courseCode}</Text>
-          <Text className="text-base text-darker w-fit">{timeSlot}</Text>
-          <StatusButton status={status} onPress={onStatusPress}>
-            {statusText}
-          </StatusButton>
+      <View className="flex w-full self-center bg-white">
+        <View
+          className={`min-h-[60px] flex-col px-4 py-2.5 ${!isLast ? 'border-light-active border-b' : ''}`}>
+          {/* Hàng đầu: canh trái */}
+          <View className="self-start">
+            <Text className="text-dark text-xl font-semibold">{courseCode}</Text>
+          </View>
+
+          {/* Hàng thứ hai: canh phải */}
+          <View className="mt-2 w-full flex-row items-center justify-between">
+            <Text className="text-darker text-lg">{timeSlot}</Text>
+            <StatusButton status={status} onPress={onStatusPress}>
+              {statusText}
+            </StatusButton>
+          </View>
         </View>
 
         {isExpanded && (
           <View className="flex">
-            <View className={`self-stretch min-h-[60px] px-4 py-3 bg-light border-b border-light-active flex-row gap-4 justify-start items-center`}>
-              <Text className="justify-start text-dark text-base font-normal ">07:30</Text>
-              <Text className="justify-start text-dark text-base font-medium ">Check-in</Text>
+            {/* <View
+              className={`bg-light border-light-active min-h-[60px] flex-row items-center justify-start gap-4 self-stretch border-b px-4 py-3`}>
+              <Text className="text-dark justify-start text-base font-normal ">07:30</Text>
+              <Text className="text-dark justify-start text-base font-medium ">Check-in</Text>
             </View>
-            <View className={`self-stretch min-h-[60px] px-4 py-3 bg-light border-b border-light-active flex-row gap-4 justify-start items-center`}>
-              <Text className="justify-start text-dark text-base font-normal ">09:35</Text>
-              <Text className="justify-start text-dark text-base font-medium ">Check-out</Text>
-            </View>
+            <View
+              className={`bg-light border-light-active min-h-[60px] flex-row items-center justify-start gap-4 self-stretch border-b px-4 py-3`}>
+              <Text className="text-dark justify-start text-base font-normal ">09:35</Text>
+              <Text className="text-dark justify-start text-base font-medium ">Check-out</Text>
+            </View> */}
           </View>
         )}
       </View>
