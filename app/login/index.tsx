@@ -4,6 +4,7 @@ import { usePathname, useRouter } from 'expo-router';
 import Back_light from '~/assets/icons/Back_light.svg';
 import Ellipse3 from '~/assets/icons/Ellipse3.svg';
 import Ellipse4 from '~/assets/icons/Ellipse4.svg';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -12,11 +13,14 @@ export default function LoginScreen() {
   const pathname = usePathname();
   const isActive = (href: string) => pathname === href;
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (id && pw) {
-      setTimeout(() => {
-        router.replace('/(tabs)/schedule' as const);
-      }, 0);
+       try {
+      await AsyncStorage.setItem('studentId', id);
+      router.replace('/(tabs)/schedule' as const);
+    } catch (e) {
+      console.error('Failed to save student ID:', e);
+    }
     }
   };
 
