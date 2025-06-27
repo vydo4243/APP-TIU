@@ -31,7 +31,7 @@ export default function LoginScreen() {
     if (mssv && password) {
       let responseData = null;
       try {
-        const response = await fetch(`http://192.168.1.4:8080/crm/login`, {
+        const response = await fetch(`http://192.168.0.100:8080/crm/login`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -52,7 +52,7 @@ export default function LoginScreen() {
         console.log('Parsed JSON:', responseData);
 
         if (responseData.isSuccess) {
-          await AsyncStorage.setItem('studentId', responseData.data.id);
+          await AsyncStorage.setItem('studentId', String(responseData.data.id));
           setTimeout(() => {
             router.replace('/(tabs)/schedule' as const);
           }, 0);

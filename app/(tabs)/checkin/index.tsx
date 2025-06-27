@@ -56,7 +56,7 @@ export default function CheckIn() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch(`http://192.168.1.4:8080/crm/student/cico`, {
+        const response = await fetch(`http://192.168.0.100:8080/crm/student/cico`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

@@ -123,7 +123,7 @@ const Calendar = ({
     isSelected?: boolean;
     onPress?: () => void;
   }) => {
-    const containerBase = `min-h-[60px] min-w-[60px] items-center justify-start rounded-[8px] px-2.5 ${
+    const containerBase = `min-h-[60px] min-w-[50px] items-center justify-start rounded-[8px] px-2.5 ${
       isSelected ? 'border border-normal' : ''
     }`;
 

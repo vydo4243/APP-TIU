@@ -15,9 +15,9 @@ const FLOORS = ['1st Floor', '2nd Floor', '3rd Floor'];
 
 const getStatus = (current: number, max: number): Status => {
   if (max === 0) return 'empty';
+  console.log(current / max);
   const ratio = current / max;
-  if (ratio >= 0.8) return 'used';
-  if (ratio >= 0.3) return 'booked';
+  if (ratio > 0) return 'used';
   return 'empty';
 };
 
@@ -44,7 +44,7 @@ export default function ClassCheckScreen() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch(`http://192.168.1.4:8080/crm/density`, {
+        const response = await fetch(`http://192.168.0.100:8080/crm/density`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
