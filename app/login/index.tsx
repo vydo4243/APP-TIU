@@ -1,26 +1,72 @@
 import { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, SafeAreaView, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  ScrollView,
+} from 'react-native';
 import { usePathname, useRouter } from 'expo-router';
 import Back_light from '~/assets/icons/Back_light.svg';
 import Ellipse3 from '~/assets/icons/Ellipse3.svg';
 import Ellipse4 from '~/assets/icons/Ellipse4.svg';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+// import { API_BASE_URL } from '@env';
 
 export default function LoginScreen() {
   const router = useRouter();
-  const [id, setId] = useState('');
-  const [pw, setPw] = useState('');
+  const [mssv, setMssv] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const pathname = usePathname();
   const isActive = (href: string) => pathname === href;
 
   const handleLogin = async () => {
-    if (id && pw) {
-       try {
-      await AsyncStorage.setItem('studentId', id);
-      router.replace('/(tabs)/schedule' as const);
-    } catch (e) {
-      console.error('Failed to save student ID:', e);
-    }
+    const form = new URLSearchParams();
+    form.append('mssv', mssv);
+    form.append('password', password);
+
+    if (mssv && password) {
+      let responseData = null;
+      try {
+        const response = await fetch(`http://192.168.0.100:8080/crm/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: form.toString(),
+          credentials: 'include',
+        });
+
+        const text = await response.text(); // đọc thô để debug trước
+        console.log('Response status:', response.status);
+        console.log('Raw response:', text);
+
+        if (!response.ok) {
+          throw new Error(`Đăng nhập thất bại - status: ${response.status}`);
+        }
+
+        responseData = JSON.parse(text); // chuyển lại thành JSON sau khi log
+        console.log('Parsed JSON:', responseData);
+
+        if (responseData.isSuccess) {
+          await AsyncStorage.setItem('studentId', String(responseData.data.id));
+          setTimeout(() => {
+            router.replace('/(tabs)/schedule' as const);
+          }, 0);
+        } else {
+          setError(responseData?.message || 'Đăng nhập thất bại');
+        }
+      } catch (error) {
+        console.log('Error caught:', error);
+        if (error instanceof Error) {
+          setError(error.message);
+        } else {
+          setError('Lỗi không xác định');
+        }
+      }
     }
   };
 
@@ -32,7 +78,6 @@ export default function LoginScreen() {
       </View>
 
       <View style={styles.IntroButtons}>
-
         <TouchableOpacity onPress={() => router.push('/')} style={styles.backButton}>
           <Back_light width={30} height={30} />
         </TouchableOpacity>
@@ -68,12 +113,9 @@ export default function LoginScreen() {
         <Ellipse4 width={499} height={456} />
       </View>
 
-
       <ScrollView contentContainerStyle={styles.container}>
-
         {/* Login Box */}
-        <View style={[styles.loginBox, { justifyContent: 'center' }]} >
-
+        <View style={[styles.loginBox, { justifyContent: 'center' }]}>
           {/* Logo */}
           <Image
             source={{
@@ -95,8 +137,8 @@ export default function LoginScreen() {
               <Text style={styles.inputLabel}>ID</Text>
               <TextInput
                 style={styles.input}
-                value={id}
-                onChangeText={setId}
+                value={mssv}
+                onChangeText={setMssv}
                 placeholder="Your ID"
                 placeholderTextColor="#999"
               />
@@ -105,24 +147,21 @@ export default function LoginScreen() {
               <Text style={styles.inputLabel}>Password</Text>
               <TextInput
                 style={styles.input}
-                value={pw}
-                onChangeText={setPw}
+                value={password}
+                onChangeText={setPassword}
                 placeholder="Password"
                 secureTextEntry
                 placeholderTextColor="#999"
               />
             </View>
           </View>
-
+          {error && <Text style={styles.loginErrorText}>{error}</Text>}
           {/* Login Button */}
           <TouchableOpacity onPress={handleLogin} style={styles.loginButton}>
             <Text style={styles.loginButtonText}>Login</Text>
           </TouchableOpacity>
         </View>
-
-
       </ScrollView>
-
     </View>
   );
 }
@@ -156,7 +195,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     marginLeft: 17,
     alignItems: 'center',
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
 
   rightButtons: {
@@ -170,7 +209,7 @@ const styles = StyleSheet.create({
 
   aboutButton: {
     flex: 1,
-    backgroundColor: '#EDEFF8',  
+    backgroundColor: '#EDEFF8',
     paddingVertical: 14,
     borderRadius: 90,
     alignItems: 'center',
@@ -198,9 +237,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: '500',
-
   },
-
 
   loginBox: {
     width: '100%',
@@ -273,5 +310,12 @@ const styles = StyleSheet.create({
     color: '#edeff8',
     fontSize: 18,
     fontWeight: '400',
+  },
+  loginErrorText: {
+    color: '#F1A805',
+    fontSize: 18,
+    fontWeight: '400',
+    paddingBottom: 10,
+    marginTop: -25,
   },
 });

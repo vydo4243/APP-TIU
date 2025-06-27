@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Modal,
   ImageBackground,
+  ActivityIndicator,
 } from 'react-native';
 import { ChevronLeft, ChevronRight } from 'lucide-react-native';
 import User from '~/assets/icons/user.svg';
@@ -17,7 +18,6 @@ import Logout from '~/assets/icons/signout.svg';
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ActivityIndicator } from 'react-native';
 
 type StudentInfo = {
   name: string;
@@ -132,24 +132,25 @@ export default function ProfileScreen() {
             imageStyle={{ borderRadius: 16 }}
             className="relative w-[85%] px-6 py-16">
             {/* Text */}
-            <Text className="mb-4 text-center font-medium text-xl text-normal-hover">
+            <Text className="text-normal-hover mb-4 text-center text-xl font-medium">
               Are you sure ?
             </Text>
 
             {/* Buttons */}
             <View className="flex-row justify-center gap-4 space-x-4">
               <TouchableOpacity
-                className="h-[54px] w-[120px] items-center justify-center rounded-full border border-normal bg-normal"
-                onPress={() => {
+                className="border-normal bg-normal h-[54px] w-[120px] items-center justify-center rounded-full border"
+                onPress={async () => {
+                  await AsyncStorage.removeItem('studentId');
                   setShowLogoutModal(false);
                   router.push('/login');
                 }}>
-                <Text className="font-normal text-lg text-white">Logout</Text>
+                <Text className="text-lg font-normal text-white">Logout</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => setShowLogoutModal(false)}
-                className="h-[54px] w-[120px] items-center justify-center rounded-full border border-normal">
-                <Text className="font-normal text-lg text-dark">Cancel</Text>
+                className="border-normal h-[54px] w-[120px] items-center justify-center rounded-full border">
+                <Text className="text-dark text-lg font-normal">Cancel</Text>
               </TouchableOpacity>
             </View>
           </ImageBackground>
@@ -159,14 +160,14 @@ export default function ProfileScreen() {
       {isLoading ? (
         <View className="mt-32 flex-1 items-center justify-center">
           <ActivityIndicator size="large" color="#394A92" />
-          <Text className="mt-4 text-lg text-dark">Loading...</Text>
+          <Text className="text-dark mt-4 text-lg">Loading...</Text>
         </View>
       ) : (
         <ScrollView className="flex-1 bg-white px-4 pt-16">
           {/* Header */}
           <View className="mb-4 flex-row items-center justify-between">
             <View className="flex-1 items-center">
-              <Text className="font-semibold text-2xl text-normal">PROFILE</Text>
+              <Text className="text-normal text-2xl font-semibold">PROFILE</Text>
             </View>
             <TouchableOpacity className="absolute right-0">
               <Logout
@@ -186,37 +187,37 @@ export default function ProfileScreen() {
               resizeMode="contain"
             />
             <View className="mt-3 rounded-full bg-[#F1A805] px-4 py-2">
-              <Text className="font-normal text-lg text-white">Currently studying</Text>
+              <Text className="text-lg font-normal text-white">Currently studying</Text>
             </View>
           </View>
 
           {/* Info Box */}
           {student && (
-            <View className="mb-6 rounded-xl border border-normal p-4">
+            <View className="border-normal mb-6 rounded-xl border p-4">
               <View className="mb-2 flex-row items-center gap-2">
                 <User width={22} height={22} className="mr-2" />
-                <Text className="font-semibold text-lg text-dark">Full name:</Text>
-                <Text className="font-normal text-lg text-darker">{student.name}</Text>
+                <Text className="text-dark text-lg font-semibold">Full name:</Text>
+                <Text className="text-darker text-lg font-normal">{student.name}</Text>
               </View>
               <View className="mb-2 flex-row items-center gap-2">
                 <Profile width={22} height={22} className="mr-2" />
-                <Text className="font-semibold text-lg text-dark">Class:</Text>
-                <Text className="font-normal text-lg text-darker">{student.class}</Text>
+                <Text className="text-dark text-lg font-semibold">Class:</Text>
+                <Text className="text-darker text-lg font-normal">{student.class}</Text>
               </View>
               <View className="mb-2 flex-row items-center gap-2">
                 <StudentID width={22} height={22} color="#394A92" className="mr-2" />
-                <Text className="font-semibold text-lg text-dark">Student ID:</Text>
-                <Text className="font-normal text-lg text-darker">{student.mssv}</Text>
+                <Text className="text-dark text-lg font-semibold">Student ID:</Text>
+                <Text className="text-darker text-lg font-normal">{student.mssv}</Text>
               </View>
               <View className="mb-2 flex-row items-center gap-2">
                 <Bookmark width={22} height={22} color="#394A92" className="mr-2" />
-                <Text className="font-semibold text-lg text-dark">Faculty:</Text>
-                <Text className="font-normal text-lg text-darker">{student.major}</Text>
+                <Text className="text-dark text-lg font-semibold">Faculty:</Text>
+                <Text className="text-darker text-lg font-normal">{student.major}</Text>
               </View>
               <View className="flex-row items-center gap-2">
                 <Book width={22} height={22} color="#394A92" className="mr-2" />
-                <Text className="font-semibold text-lg text-dark">Program Type:</Text>
-                <Text className="font-normal text-lg text-darker">{student.type}</Text>
+                <Text className="text-dark text-lg font-semibold">Program Type:</Text>
+                <Text className="text-darker text-lg font-normal">{student.type}</Text>
               </View>
             </View>
           )}
@@ -224,7 +225,7 @@ export default function ProfileScreen() {
           {/* Grade Header */}
           {semesters.length > 0 && (
             <>
-              <Text className="mb-4 text-center font-semibold text-2xl text-normal">GRADE</Text>
+              <Text className="text-normal mb-4 text-center text-2xl font-semibold">GRADE</Text>
 
               <View className="mb-2 flex-row items-center justify-between">
                 <TouchableOpacity
@@ -233,8 +234,8 @@ export default function ProfileScreen() {
                   <ChevronLeft color={currentSemesterIndex === 0 ? '#ccc' : '#4B63B7'} />
                 </TouchableOpacity>
 
-                <View className="rounded-full bg-light px-10 py-2">
-                  <Text className="font-medium text-base text-dark">
+                <View className="bg-light rounded-full px-10 py-2">
+                  <Text className="text-dark text-base font-medium">
                     {semesters[currentSemesterIndex].name}
                   </Text>
                 </View>
@@ -251,14 +252,14 @@ export default function ProfileScreen() {
               </View>
 
               {/* Grade Table */}
-              <View className="overflow-hidden rounded-xl border border-light-active">
+              <View className="border-light-active overflow-hidden rounded-xl border">
                 {/* Header row */}
                 <View className="flex-row bg-[#F2F4FF]">
                   {headers.map((header, i) => (
                     <Text
                       key={i}
                       numberOfLines={1}
-                      className="border-r border-light-active p-2 text-center font-bold text-lg text-dark last:border-r-0"
+                      className="border-light-active text-dark border-r p-2 text-center text-lg font-bold last:border-r-0"
                       style={{ width: columnWidths[i] }}>
                       {header}
                     </Text>
@@ -268,13 +269,13 @@ export default function ProfileScreen() {
                 {/* Data rows */}
                 {semesters.length > 0 &&
                   semesters[currentSemesterIndex]?.grades?.map((row, rowIndex) => (
-                    <View key={rowIndex} className="flex-row border-t border-light-active">
+                    <View key={rowIndex} className="border-light-active flex-row border-t">
                       {[row.id, row.class, row.tc, row.qt, row.th, row.gk, row.ck, row.tb].map(
                         (cell, i) => (
                           <Text
                             key={i}
                             numberOfLines={1}
-                            className="border-r border-light-active p-2 text-center text-base text-darker last:border-r-0"
+                            className="border-light-active text-darker border-r p-2 text-center text-base last:border-r-0"
                             style={{ width: columnWidths[i] }}>
                             {cell}
                           </Text>
